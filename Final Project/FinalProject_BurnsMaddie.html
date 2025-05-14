@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fayetteville Theater Recommender</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        /* Shared Styles for all pages */
+        body {
+            background-color: #8B0000; /* deep red */
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 60px 20px;
+            color: yellow;
+            font-family: "Dancing Script", cursive;
+            font-size: 48px;
+            text-shadow: 4px 4px 8px #000;
+        }
+
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h2 {
+            text-align: center;
+            color: yellow;
+            text-shadow: 2px 2px 6px #000;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border: 2px solid yellow;
+            border-radius: 10px;
+        }
+
+        label, select {
+            display: block;
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        #resultSection {
+            text-align: center;
+            margin: 40px auto;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid yellow;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        #resultSection img {
+            margin: 10px;
+            border: 2px solid yellow;
+            border-radius: 8px;
+        }
+
+        a {
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Fayetteville Theatre Recommender
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="quiz-container">
+        <h2>Find Your Ideal Theater</h2>
+        <form onsubmit="return recommendTheater()">
+            <label for="size">What size of theater experience do you prefer?</label>
+            <select id="size" required>
+                <option value="small">Small & Intimate</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large & Grand</option>
+            </select>
+
+            <label for="type">What type of performance are you looking for?</label>
+            <select id="type" required>
+                <option value="musicals">Musicals</option>
+                <option value="plays">Plays</option>
+                <option value="shakespeare">Shakespearean</option>
+            </select>
+
+            <label for="location">Where in Fayetteville are you located?</label>
+            <select id="location" required>
+                <option value="downtown">Downtown</option>
+                <option value="north">North Fayetteville</option>
+                <option value="hay">Haymount</option>
+            </select>
+
+            <button type="submit">Get Recommendation</button>
+        </form>
+    </section>
+
+    <section id="resultSection" style="display:none;">
+        <h2 id="theaterName"></h2>
+        <p id="theaterDescription"></p>
+        <p id="theaterAddress"></p>
+        <p id="theaterContact"></p>
+        <p id="theaterWebsite"></p>
+        <div id="theaterImages"></div>
+        <div id="theaterVideo"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About This Project</h2>
+        <p>
+            Welcome to the Fayetteville Theatre Recommender, a web application designed as my final project for CTI110.
+            This site helps users discover the best theater in Fayetteville based on their preferences for size, type of performance, and location.
+            It utilizes an interactive quiz to generate theater recommendations, and it is powered by HTML, CSS, and JavaScript.
+        </p>
+        <p>
+            This website is designed to help theater lovers in Fayetteville find a theater that matches their needs, whether they prefer large musicals, intimate plays, or Shakespearean performances.
+            Additionally, it provides contact information and links to local theaters' websites to help users find more details and schedule a visit.
+        </p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Information</h2>
+        <p>If you have any questions or comments, feel free to reach out to me:</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:burnsm4731@student.faytechcc.edu">burnsm4731@student.faytechcc.edu</a></li>
+            <li><strong>Phone:</strong> 910-916-1777</li>
+        </ul>
+    </section>
+
+    <script>
+        function recommendTheater() {
+            const size = document.getElementById('size').value;
+            const type = document.getElementById('type').value;
+            const location = document.getElementById('location').value;
+
+            let theater = "";
+
+            if (type === 'shakespeare') {
+                theater = "Sweet Tea Shakespeare";
+            } else if (type === 'musicals' && size === 'large') {
+                theater = "Cape Fear Regional Theatre";
+            } else if (type === 'plays' && size === 'small') {
+                theater = "Gilbert Theater";
+            } else if (location === 'hay') {
+                theater = "Cape Fear Regional Theatre";
+            } else {
+                theater = "Cape Fear Regional Theatre";
+            }
+
+            displayTheaterInfo(theater);
+            return false;
+        }
+
+        function displayTheaterInfo(theater) {
+            const section = document.getElementById('resultSection');
+            const name = document.getElementById('theaterName');
+            const desc = document.getElementById('theaterDescription');
+            const address = document.getElementById('theaterAddress');
+            const contact = document.getElementById('theaterContact');
+            const website = document.getElementById('theaterWebsite');
+            const images = document.getElementById('theaterImages');
+            const video = document.getElementById('theaterVideo');
+
+            section.style.display = "block";
+
+            if (theater === "Sweet Tea Shakespeare") {
+                name.textContent = "🎭 Sweet Tea Shakespeare – Your Perfect Match!";
+                desc.innerHTML = "Sweet Tea Shakespeare is a dynamic theater and music company based in Fayetteville, NC. They blend Shakespeare with contemporary flair and offer a warm, outdoor community experience.";
+                address.innerHTML = "<strong>Address:</strong> 126 Hay Street, Fayetteville, NC 28301";
+                contact.innerHTML = "<strong>Email:</strong> info@sweetteashakespeare.com<br><strong>Phone:</strong> (910) 420-4383";
+                website.innerHTML = `<strong>Website:</strong> <a href="https://sweetteashakespeare.com/" target="_blank">sweetteashakespeare.com</a>`;
+                images.innerHTML = `
+                    <img src="Shakespeare.jpg" width="300">
+                    <img src="Sweet.jpg" width="300">
+                    <img src="Tea.jpg" width="300">
+                `;
+                video.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/PLLBeJL-JOU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else if (theater === "Cape Fear Regional Theatre") {
+                name.textContent = "🎶 Cape Fear Regional Theatre – Your Stage Awaits!";
+                desc.innerHTML = "A professional regional theatre producing musicals, dramas, and educational programming. Known for Broadway-level shows in a local setting.";
+                address.innerHTML = "<strong>Address:</strong> 1209 Hay St, Fayetteville, NC 28305";
+                contact.innerHTML = "<strong>Phone:</strong> (910) 323-4233";
+                website.innerHTML = `<strong>Website:</strong> <a href="https://www.cfrt.org/" target="_blank">cfrt.org</a>`;
+                images.innerHTML = `
+                    <img src="Cape.jpg" width="300">
+                    <img src="CapeFear.jpg" width="300">
+                    <img src="Regional.jpg" width="300">
+                `;
+                video.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/BVzNH7NK0aY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else if (theater === "Gilbert Theater") {
+                name.textContent = "🎭 Gilbert Theater – Local, Intimate, Bold.";
+                desc.innerHTML = "A nonprofit community theater known for compelling modern plays and adaptations of classics in a small, intimate venue.";
+                address.innerHTML = "<strong>Address:</strong> 116 Green St, Fayetteville, NC 28301";
+                contact.innerHTML = "<strong>Email:</strong> info@gilberttheater.com<br><strong>Phone:</strong> (910) 678-7186";
+                website.innerHTML = `<strong>Website:</strong> <a href="https://www.gilberttheater.com/" target="_blank">gilberttheater.com</a>`;
+                images.innerHTML = `
+                    <img src="Gilbert.jpg" width="300">
+                    <img src="theatre.jpg" width="300">
+                    <img src="gil.jpg" width="300">
+                `;
+                video.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/4qylwsJY8j0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
+
